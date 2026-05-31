@@ -1,0 +1,323 @@
+<!-- @NeoDark503 -->
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sendas Salvadoreñas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        oceanDark: '#0b0f19',
+                        oceanCard: '#111827',
+                        surfCian: '#06b6d4',
+                        surfBlue: '#3b82f6',
+                        tourismGold: '#f59e0b'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 dark:bg-oceanDark text-gray-900 dark:text-gray-100 font-sans antialiased pb-28 transition-colors duration-300">
+
+    <audio id="bg-audio" loop>
+        <source src="https://raw.githubusercontent.com/sendassalvadorenas/MiPais/ff4cd4813d4f0d56332aa142bb99c1f00a0e2133/fondo.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="modal-idioma" class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+        <div class="bg-white dark:bg-oceanCard border border-gray-200 dark:border-gray-800 w-full max-w-sm rounded-3xl p-6 text-center shadow-2xl">
+            <span class="text-4xl">🌎</span>
+            <h2 class="text-xl font-black mt-3 mb-1 dark:text-white text-gray-900">Selecciona tu idioma</h2>
+            <p class="text-xs text-gray-500 dark:text-gray-400 mb-6">Select your language • Selecione o seu idioma</p>
+            
+            <div class="space-y-2">
+                <button onclick="cambiarIdioma('es')" class="w-full py-3 bg-gray-100 dark:bg-gray-800 hover:bg-surfBlue hover:text-white dark:hover:bg-surfBlue transition font-bold rounded-xl flex items-center justify-between px-5">
+                    <span>Español</span><span class="text-lg">🇸🇻</span>
+                </button>
+                <button onclick="cambiarIdioma('en')" class="w-full py-3 bg-gray-100 dark:bg-gray-800 hover:bg-surfBlue hover:text-white dark:hover:bg-surfBlue transition font-bold rounded-xl flex items-center justify-between px-5">
+                    <span>English</span><span class="text-lg">🇺🇸</span>
+                </button>
+                <button onclick="cambiarIdioma('pt')" class="w-full py-3 bg-gray-100 dark:bg-gray-800 hover:bg-surfBlue hover:text-white dark:hover:bg-surfBlue transition font-bold rounded-xl flex items-center justify-between px-5">
+                    <span>Português</span><span class="text-lg">🇧🇷</span>
+                </button>
+                <button onclick="cambiarIdioma('fr')" class="w-full py-3 bg-gray-100 dark:bg-gray-800 hover:bg-surfBlue hover:text-white dark:hover:bg-surfBlue transition font-bold rounded-xl flex items-center justify-between px-5">
+                    <span>Français</span><span class="text-lg">🇫🇷</span>
+                </button>
+                <button onclick="cambiarIdioma('de')" class="w-full py-3 bg-gray-100 dark:bg-gray-800 hover:bg-surfBlue hover:text-white dark:hover:bg-surfBlue transition font-bold rounded-xl flex items-center justify-between px-5">
+                    <span>Deutsch</span><span class="text-lg">🇩🇪</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <header class="sticky top-0 z-50 backdrop-blur-md bg-white/80 dark:bg-oceanDark/80 border-b border-gray-200 dark:border-gray-800 p-4">
+        <div class="max-w-6xl mx-auto flex justify-end items-center w-full">
+            <div class="flex items-center gap-2">
+                <button onclick="mostrarModalIdioma()" class="p-2 rounded-xl bg-gray-100 dark:bg-gray-800 text-lg">
+                    🌐
+                </button>
+                <button onclick="toggleTheme()" class="p-2 rounded-xl bg-gray-100 dark:bg-gray-800 text-lg">
+                    <span id="theme-icon">☀️</span>
+                </button>
+                <!-- Botón de Audio posicionado a la derecha del botón de modo oscuro -->
+                <button id="audio-toggle" class="p-2 rounded-xl bg-gray-100 dark:bg-gray-800 text-lg">
+                    🔇
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto p-4 md:p-8 space-y-16">
+        <section class="text-center py-4">
+            <img src="https://raw.githubusercontent.com/sendassalvadorenas/MiPais/ff4cd4813d4f0d56332aa142bb99c1f00a0e2133/icon.jpeg" alt="Logo" class="w-[30%] mx-auto mb-6 rounded-full shadow-lg">
+            
+            <h1 class="text-4xl md:text-5xl font-black tracking-tight">Sendas Salvadoreñas</h1>
+            <p id="txt-subtitulo" class="text-surfCian font-medium text-base mt-2">Tu guía experta de turismo y playas</p>
+        </section>
+
+        <section id="feed-playas" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 scroll-mt-20">
+            </section>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+            <section id="seccion-ubicacion" class="bg-white dark:bg-oceanCard p-6 rounded-3xl border border-gray-200 dark:border-gray-800 scroll-mt-20 h-full flex flex-col justify-between">
+                <div>
+                    <h2 id="title-ubicacion" class="text-2xl font-bold mb-4 flex items-center gap-2">📍 Ubicación</h2>
+                    <p id="txt-ubicacion" class="text-sm text-gray-500 dark:text-gray-400 mb-6">Encuentra la mejor ruta hacia nuestras playas desde tu posición actual.</p>
+                </div>
+                <button id="btn-mapa-costa" onclick="window.open('https://www.google.com/maps/search/Playas+La+Libertad+El+Salvador', '_blank')" class="w-full py-4 bg-surfBlue text-white font-bold rounded-2xl shadow-lg hover:bg-blue-600 transition active:scale-[0.98]">
+                    Ver mapa de la costa
+                </button>
+            </section>
+
+            <section id="seccion-contacto" class="space-y-4 scroll-mt-20">
+                <h2 id="title-contacto" class="text-2xl font-bold mb-4">📞 Contáctanos</h2>
+                <div class="grid grid-cols-1 gap-3">
+                    <a href="https://wa.me/50374167676" target="_blank" class="flex items-center gap-4 p-4 bg-green-500/10 border border-green-500/20 rounded-2xl text-green-500 hover:bg-green-500/20 transition">
+                        <span class="text-2xl">💬</span>
+                        <span id="btn-whatsapp" class="font-bold">7416-7676</span>
+                    </a>
+                    <a href="mailto:sendassalvadorenas00@gmail.com" class="flex items-center gap-4 p-4 bg-gray-200 dark:bg-gray-800 rounded-2xl hover:bg-gray-300 dark:hover:bg-gray-700 transition overflow-hidden text-ellipsis">
+                        <span class="text-2xl">📧</span>
+                        <span class="font-bold truncate">sendassalvadorenas00@gmail.com</span>
+                    </a>
+                    <a href="https://www.mediafire.com/file/0zmupuoi63s8g2c/index.html/file" target="_blank" class="flex items-center gap-4 p-4 bg-tourismGold/10 border border-tourismGold/20 rounded-2xl text-tourismGold hover:bg-tourismGold/20 transition">
+                        <span class="text-2xl">📱</span>
+                        <span class="font-bold">Descargar App Móvil</span>
+                    </a>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <nav class="fixed bottom-5 left-1/2 -translate-x-1/2 w-[90%] max-w-sm backdrop-blur-lg bg-white/90 dark:bg-oceanCard/90 border border-gray-200 dark:border-gray-800 rounded-2xl p-3 flex justify-around shadow-xl z-50">
+        <button onclick="scrollNav('feed-playas')" class="flex flex-col items-center text-surfCian"><span>🌊</span><span id="nav-playas" class="text-[10px] font-bold">Playas</span></button>
+        <button onclick="scrollNav('seccion-ubicacion')" class="flex flex-col items-center text-gray-400"><span>📍</span><span id="nav-ubicacion" class="text-[10px] font-bold">Ubicación</span></button>
+        <button onclick="scrollNav('seccion-contacto')" class="flex flex-col items-center text-gray-400"><span>📞</span><span id="nav-contacto" class="text-[10px] font-bold">Contacto</span></button>
+    </nav>
+
+    <script>
+        const audio = document.getElementById('bg-audio');
+        const audioBtn = document.getElementById('audio-toggle');
+        
+        audioBtn.addEventListener('click', () => {
+            if (audio.paused) {
+                audio.play();
+                audioBtn.innerText = '🔊';
+            } else {
+                audio.pause();
+                audioBtn.innerText = '🔇';
+            }
+        });
+
+        const traducciones = {
+            es: {
+                subtitulo: "Tu guía experta de turismo y playas",
+                ubicacionTitle: "📍 Ubicación",
+                ubicacionTxt: "Encuentra la mejor ruta hacia nuestras playas desde tu posición actual.",
+                btnMapa: "Ver mapa de la costa",
+                contactoTitle: "📞 Contáctanos",
+                visitaWeb: "Visita nuestro sitio web",
+                navPlayas: "Playas",
+                navUbicacion: "Ubicación",
+                navContacto: "Contacto",
+                tagHotel: "🏨 Hotel cercano: ",
+                tagGps: "📍 Toca para abrir navegación GPS",
+                tagsPlayas: {
+                    surf: "Surf Pro", gastro: "Gastronomía", long: "Longboard", relax: "Relajación", fam: "Familia", bit: "Bitcoin Beach", yoga: "Yoga", nat: "Naturaleza", priv: "Privacidad"
+                }
+            },
+            en: {
+                subtitulo: "Your expert tourism and beach guide",
+                ubicacionTitle: "📍 Location",
+                ubicacionTxt: "Find the best route to our beaches from your current position.",
+                btnMapa: "View coast map",
+                contactoTitle: "📞 Contact Us",
+                visitaWeb: "Visit our website",
+                navPlayas: "Beaches",
+                navUbicacion: "Location",
+                navContacto: "Contact",
+                tagHotel: "🏨 Nearby Hotel: ",
+                tagGps: "📍 Tap to open GPS navigation",
+                tagsPlayas: {
+                    surf: "Pro Surf", gastro: "Gastronomy", long: "Longboard", relax: "Relaxation", fam: "Family", bit: "Bitcoin Beach", yoga: "Yoga", nat: "Nature", priv: "Privacy"
+                }
+            },
+            pt: {
+                subtitulo: "Seu guia especializado em turismo e praias",
+                ubicacionTitle: "📍 Localização",
+                ubicacionTxt: "Encontre a melhor rota para as nossas praias a partir da sua posição atual.",
+                btnMapa: "Ver mapa da costa",
+                contactoTitle: "📞 Contate-nos",
+                visitaWeb: "Visite o nosso site",
+                navPlayas: "Praias",
+                navUbicacion: "Localização",
+                navContacto: "Contato",
+                tagHotel: "🏨 Hotel Próximo: ",
+                tagGps: "📍 Toque para abrir a navegação GPS",
+                tagsPlayas: {
+                    surf: "Surf Pro", gastro: "Gastronomia", long: "Longboard", relax: "Relaxamento", fam: "Família", bit: "Bitcoin Beach", yoga: "Yoga", nat: "Natureza", priv: "Privacidade"
+                }
+            },
+            fr: {
+                subtitulo: "Votre guide expert du tourisme et des plages",
+                ubicacionTitle: "📍 Localisation",
+                ubicacionTxt: "Trouvez le meilleur itinéraire vers nos plages depuis votre position actuelle.",
+                btnMapa: "Voir la carte de la côte",
+                contactoTitle: "📞 Contactez-nous",
+                visitaWeb: "Visitez notre site web",
+                navPlayas: "Plages",
+                navUbicacion: "Localisation",
+                navContacto: "Contact",
+                tagHotel: "🏨 Hôtel Proche: ",
+                tagGps: "📍 Appuyez para ouvrir la navigation GPS",
+                tagsPlayas: {
+                    surf: "Surf Pro", gastro: "Gastronomie", long: "Longboard", relax: "Détente", fam: "Famille", bit: "Bitcoin Beach", yoga: "Yoga", nat: "Nature", priv: "Inimité"
+                }
+            },
+            de: {
+                subtitulo: "Ihr Experte für Tourismus und Strände",
+                ubicacionTitle: "📍 Standort",
+                ubicacionTxt: "Finden Sie die beste Route zu unseren Stränden von Ihrer aktuellen Position aus.",
+                btnMapa: "Küstenkarte anzeigen",
+                contactoTitle: "📞 Kontaktieren Sie uns",
+                visitaWeb: "Besuchen Sie unsere Webseite",
+                navPlayas: "Strände",
+                navUbicacion: "Standort",
+                navContacto: "Kontakt",
+                tagHotel: "🏨 Hotel in der Nähe: ",
+                tagGps: "📍 Tippen, um die GPS-Navigation zu öffnen",
+                tagsPlayas: {
+                    surf: "Surf Pro", gastro: "Gastronomie", long: "Longboard", relax: "Entspannung", fam: "Familie", bit: "Bitcoin Beach", yoga: "Yoga", nat: "Natur", priv: "Privatsphäre"
+                }
+            }
+        };
+
+        let idiomaActual = 'es';
+
+        const playas = [
+            { 
+                name: "Playa El Tunco", 
+                tagKeys: ["surf", "gastro"], 
+                hotel: "Hotel Roca Sunzal",
+                pos: "object-[center_50%]", 
+                img: "https://www.visitcentroamerica.com/wp-content/uploads/2025/04/Playa-El-Tunco-Tourists-El-Salvador-03.webp",
+                mapsUrl: "https://www.google.com/maps/dir/?api=1&destination=Playa+El+Tunco+La+Libertad+El+Salvador"
+            },
+            { 
+                name: "Playa El Sunzal", 
+                tagKeys: ["long", "relax"], 
+                hotel: "Sunzal Surf Camp",
+                pos: "object-[center_50%]", 
+                img: "https://ipanelsalvador.wordpress.com/wp-content/uploads/2012/09/el-sunzal-51.jpg",
+                mapsUrl: "https://www.google.com/maps/dir/?api=1&destination=Playa+El+Sunzal+La+Libertad+El+Salvador"
+            },
+            { 
+                name: "Playa El Palmarcito", 
+                tagKeys: ["fam"], 
+                hotel: "Hotel & Restaurante El Palmarcito",
+                pos: "object-[center_50%]", 
+                img: "https://elsalvador.travel/system/wp-content/uploads/2024/07/palmarcito-03.jpg",
+                mapsUrl: "https://www.google.com/maps/dir/?api=1&destination=Playa+El+Palmarcito+La+Libertad+El+Salvador"
+            },
+            { 
+                name: "Playa El Zonte", 
+                tagKeys: ["bit", "yoga"], 
+                hotel: "Puro Surf Hotel",
+                pos: "object-[center_50%]", 
+                img: "https://elsalvadorviajar.com/wp-content/uploads/2022/02/PLAYA-EL-ZONTE-Playas-de-EL-Salvador.jpg",
+                mapsUrl: "https://www.google.com/maps/dir/?api=1&destination=Playa+El+Zonte+La+Libertad+El+Salvador"
+            },
+            { 
+                name: "Playa Mizata", 
+                tagKeys: ["nat", "priv"], 
+                hotel: "Mizata Point Resort",
+                pos: "object-[center_50%]", 
+                img: "https://elsalvador.travel/system/wp-content/uploads/2024/07/mizata-03.jpg",
+                mapsUrl: "https://www.google.com/maps/dir/?api=1&destination=Playa+El+Mizata+La+Libertad+El+Salvador"
+            }
+        ];
+
+        function cambiarIdioma(lang) {
+            idiomaActual = lang;
+            document.getElementById('modal-idioma').style.display = 'none';
+            
+            const t = traducciones[lang];
+            document.getElementById('txt-subtitulo').innerText = t.subtitulo;
+            document.getElementById('title-ubicacion').innerHTML = t.ubicacionTitle;
+            document.getElementById('txt-ubicacion').innerText = t.ubicacionTxt;
+            document.getElementById('btn-mapa-costa').innerText = t.btnMapa;
+            document.getElementById('title-contacto').innerText = t.contactoTitle;
+            
+            document.getElementById('nav-playas').innerText = t.navPlayas;
+            document.getElementById('nav-ubicacion').innerText = t.navUbicacion;
+            document.getElementById('nav-contacto').innerText = t.navContacto;
+            
+            renderPlayas();
+        }
+
+        function mostrarModalIdioma() {
+            document.getElementById('modal-idioma').style.display = 'flex';
+        }
+
+        function renderPlayas() {
+            const contenedor = document.getElementById('feed-playas');
+            const t = traducciones[idiomaActual];
+            
+            contenedor.innerHTML = playas.map(p => `
+                <a href="${p.mapsUrl}" target="_blank" class="block relative h-72 rounded-2xl overflow-hidden group shadow-lg transition-transform active:scale-[0.98]">
+                    <img src="${p.img}" alt="${p.name}" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 ${p.pos}">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/30 to-transparent flex flex-col justify-end p-5 text-white">
+                        <h3 class="text-2xl font-black tracking-tight">${p.name}</h3>
+                        <p class="text-sm text-surfCian font-bold mt-1 mb-2 flex items-center gap-1">
+                            ${t.tagHotel} ${p.hotel}
+                        </p>
+                        <div class="flex gap-2 mb-2 flex-wrap">
+                            ${p.tagKeys.map(key => `<span class="text-[10px] font-bold bg-white/20 backdrop-blur px-3 py-1 rounded-full">${t.tagsPlayas[key]}</span>`).join('')}
+                        </div>
+                        <span class="text-[10px] text-gray-300 font-medium italic flex items-center gap-1">
+                            ${t.tagGps}
+                        </span>
+                    </div>
+                </a>
+            `).join('');
+        }
+
+        function scrollNav(id) { 
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' }); 
+        }
+
+        function toggleTheme() {
+            document.documentElement.classList.toggle('dark');
+            const isDark = document.documentElement.classList.contains('dark');
+            document.getElementById('theme-icon').innerText = isDark ? '☀️' : '🌙';
+        }
+
+        renderPlayas();
+    </script>
+</body>
+</html>
