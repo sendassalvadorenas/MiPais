@@ -13,7 +13,7 @@
                     colors: {
                         oceanDark: '#0b0f19',
                         oceanCard: '#111827',
-                        surfCian: '#06b6d4',
+                        surfCian: '#67e8f9',
                         surfBlue: '#3b82f6',
                         tourismGold: '#f59e0b'
                     }
@@ -103,11 +103,12 @@
             <section id="seccion-contacto" class="space-y-4 scroll-mt-20">
                 <h2 id="title-contacto" class="text-2xl font-bold mb-4">📞 Contáctanos</h2>
                 <div class="grid grid-cols-1 gap-3">
-                    <a href="https://wa.me/50374167676" target="_blank" class="flex items-center gap-4 p-4 bg-green-500/10 border border-green-500/20 rounded-2xl text-green-500 hover:bg-green-500/20 transition">
+                    <!-- Botón WhatsApp modificado a blanco -->
+                    <a href="https://wa.me/50374167676" target="_blank" class="flex items-center gap-4 p-4 bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl text-white hover:bg-gray-200 dark:hover:bg-gray-700 transition">
                         <span class="text-2xl">💬</span>
                         <span id="btn-whatsapp" class="font-bold">7416-7676</span>
                     </a>
-                    <a href="mailto:sendassalvadorenas00@gmail.com" class="flex items-center gap-4 p-4 bg-gray-200 dark:bg-gray-800 rounded-2xl hover:bg-gray-300 dark:hover:bg-gray-700 transition overflow-hidden text-ellipsis">
+                    <a href="mailto:sendassalvadorenas00@gmail.com" class="flex items-center gap-4 p-4 bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl text-gray-900 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 transition overflow-hidden text-ellipsis">
                         <span class="text-2xl">📧</span>
                         <span class="font-bold truncate">sendassalvadorenas00@gmail.com</span>
                     </a>
@@ -127,12 +128,11 @@
     </nav>
 
     <script>
-        // Forzar reproducción del video al cargar
         window.addEventListener('load', function() {
             const video = document.getElementById('bg-video');
             if (video) {
                 video.play().catch(error => {
-                    console.log("Autoplay bloqueado, el usuario debe interactuar.");
+                    console.log("Autoplay bloqueado");
                 });
             }
         });
