@@ -26,10 +26,10 @@
 <body class="bg-gray-50 dark:bg-oceanDark text-gray-900 dark:text-gray-100 font-sans antialiased pb-28 transition-colors duration-300">
 
     <audio id="bg-audio" loop>
-        <source src="https://raw.githubusercontent.com/sendassalvadorenas/MiPais/ff4cd4813d4f0d56332aa142bb99c1f00a0e2133/fondo.mp3" type="audio/mpeg">
+        <source src="https://raw.githubusercontent.com/sendassalvadorenas/MiPais/3f0fe572346fc0a9f4980dd706750f88e80b553b/fondo.mp3" type="audio/mpeg">
     </audio>
 
-    <div id="modal-idioma" class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+    <div id="modal-idioma" class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md hidden">
         <div class="bg-white dark:bg-oceanCard border border-gray-200 dark:border-gray-800 w-full max-w-sm rounded-3xl p-6 text-center shadow-2xl">
             <span class="text-4xl">🌎</span>
             <h2 class="text-xl font-black mt-3 mb-1 dark:text-white text-gray-900">Selecciona tu idioma</h2>
@@ -64,7 +64,6 @@
                 <button onclick="toggleTheme()" class="p-2 rounded-xl bg-gray-100 dark:bg-gray-800 text-lg">
                     <span id="theme-icon">☀️</span>
                 </button>
-                <!-- Botón de Audio posicionado a la derecha del botón de modo oscuro -->
                 <button id="audio-toggle" class="p-2 rounded-xl bg-gray-100 dark:bg-gray-800 text-lg">
                     🔇
                 </button>
@@ -74,7 +73,7 @@
 
     <main class="max-w-6xl mx-auto p-4 md:p-8 space-y-16">
         <section class="text-center py-4">
-            <img src="https://raw.githubusercontent.com/sendassalvadorenas/MiPais/ff4cd4813d4f0d56332aa142bb99c1f00a0e2133/icon.jpeg" alt="Logo" class="w-[30%] mx-auto mb-6 rounded-full shadow-lg">
+            <img src="https://raw.githubusercontent.com/sendassalvadorenas/MiPais/3f0fe572346fc0a9f4980dd706750f88e80b553b/icon.jpeg" alt="Logo" class="w-[30%] mx-auto mb-6 rounded-full shadow-lg">
             
             <h1 class="text-4xl md:text-5xl font-black tracking-tight">Sendas Salvadoreñas</h1>
             <p id="txt-subtitulo" class="text-surfCian font-medium text-base mt-2">Tu guía experta de turismo y playas</p>
@@ -264,7 +263,7 @@
 
         function cambiarIdioma(lang) {
             idiomaActual = lang;
-            document.getElementById('modal-idioma').style.display = 'none';
+            document.getElementById('modal-idioma').classList.add('hidden');
             
             const t = traducciones[lang];
             document.getElementById('txt-subtitulo').innerText = t.subtitulo;
@@ -281,7 +280,7 @@
         }
 
         function mostrarModalIdioma() {
-            document.getElementById('modal-idioma').style.display = 'flex';
+            document.getElementById('modal-idioma').classList.remove('hidden');
         }
 
         function renderPlayas() {
