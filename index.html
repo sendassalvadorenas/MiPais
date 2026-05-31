@@ -26,7 +26,7 @@
 
     <!-- Video de fondo -->
     <div class="fixed inset-0 -z-10 overflow-hidden">
-        <video autoplay muted loop playsinline class="w-full h-full object-cover">
+        <video id="bg-video" autoplay muted loop playsinline class="w-full h-full object-cover">
             <source src="video1.mp4" type="video/mp4">
         </video>
         <div class="absolute inset-0 bg-black/60"></div>
@@ -127,6 +127,16 @@
     </nav>
 
     <script>
+        // Forzar reproducción del video al cargar
+        window.addEventListener('load', function() {
+            const video = document.getElementById('bg-video');
+            if (video) {
+                video.play().catch(error => {
+                    console.log("Autoplay bloqueado, el usuario debe interactuar.");
+                });
+            }
+        });
+
         const audio = document.getElementById('bg-audio');
         const audioBtn = document.getElementById('audio-toggle');
         
